@@ -1,3 +1,139 @@
-nav {
+ul {
   height: 60px;
+  background-color: #00a1f7;
+}
+
+li a {
+  color: lightgray !important;
+  font-size: 0.8em;
+}
+li a:hover,
+li a:active {
+  color: white !important;
+}
+small {
+  font-size: 70%;
+  font-weight: 400;
+}
+.pair span {
+  font-size: 20%;
+}
+.name {
+  font-size: 0.2em;
+  font-weight: bold;
+  margin-top: -8px;
+}
+
+li {
+  cursor: pointer;
+  margin: 10px;
+}
+.sub {
+  margin-left: 15px;
+}
+
+@keyframes lds-rolling {
+  0% {
+    -webkit-transform: translate(-50%, -50%) rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+@-webkit-keyframes lds-rolling {
+  0% {
+    -webkit-transform: translate(-50%, -50%) rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+.lds-rolling {
+  position: relative;
+}
+.lds-rolling div,
+.lds-rolling div:after {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border: 20px solid #0579c1;
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+.lds-rolling div {
+  -webkit-animation: lds-rolling 1s linear infinite;
+  animation: lds-rolling 1s linear infinite;
+  top: 100px;
+  left: 100px;
+}
+.lds-rolling div:after {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.lds-rolling {
+  width: 200px !important;
+  height: 200px !important;
+  -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+  transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+}
+
+/* horizontal timeline */
+.dot {
+  background-color: #00a1f7;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.sd {
+  background-color: #00a1f7;
+  height: 8px;
+  margin-right: -1px;
+  width: 100px;
+  margin-left: -1px;
+  margin-bottom: 6px;
+  padding: -2px;
+  display: inline-block;
+}
+.mid {
+  width: 260px;
+}
+.country {
+  margin-left: 80px;
+  margin-right: 80px;
+}
+.departure {
+  /* margin-left: 80px; */
+  margin-right: 225px;
+}
+.info {
+  margin-left: 83px;
+  margin-right: 380px;
+}
+.location {
+  font-size: 80%;
+}
+
+.tracker {
+  color: #a6a8aa;
+  font-size: 70%;
+  margin-right: 100px;
+  margin-left: 30px;
+}
+
+.bold,
+.visb::first-line {
+  font-weight: lighter;
+  font-size: 100%;
+  color: black;
+}
+.visb span {
+  visibility: hidden;
+}
+.tracker:hover span {
+  visibility: visible;
 }

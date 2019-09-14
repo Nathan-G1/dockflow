@@ -149,8 +149,9 @@
                     }}
                     -
                     {{
-                     (now)- (item.vessel_telo_loading['readings'][0]['reading'])
-                        | date: 'M'
+                      now
+                        | month
+                          : item.vessel_telo_loading['readings'][0]['reading']
                     }}
                     months ago</span
                   >
@@ -185,8 +186,9 @@
                     }}
                     -
                     {{
-                    (now) - (item.vessel_telo_discharge['readings'][0]['reading'])
-                        | date: 'M'
+                      now
+                        | month
+                          : item.vessel_telo_discharge['readings'][0]['reading']
                     }}
                     months ago
                   </span>
