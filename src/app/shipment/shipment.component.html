@@ -1,18 +1,229 @@
 <div class="container">
-  <nav class="nav">
+  <ul class="nav mb-3" id="pills-tab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active text-black">Dockflow</a>
+      <a
+        class="nav-link active"
+        id="pills-reference-tab"
+        data-toggle="pill"
+        href="#pills-reference"
+        role="tab"
+        aria-controls="pills-reference"
+        aria-selected="true"
+        >no reference</a
+      >
     </li>
     <li class="nav-item">
-      <a class="nav-link text-black">Dockflow</a>
+      <a
+        class="nav-link"
+        id="pills-timeline-tab"
+        data-toggle="pill"
+        href="#pills-timeline"
+        role="tab"
+        (click)="callShipmentData()"
+        aria-controls="pills-timeline"
+        aria-selected="false"
+        ><span class="flag-icon flag-icon-in"></span> IN Mundra<br /><span
+          class="flag-icon flag-icon-pl"
+        ></span>
+        PL Gdansk</a
+      >
     </li>
     <li class="nav-item">
-      <a class="nav-link text-black">Dockflow</a>
+      <a
+        class="nav-link"
+        id="pills-container-tab"
+        data-toggle="pill"
+        href="#pills-container"
+        role="tab"
+        aria-controls="pills-container"
+        aria-selected="false"
+        >CXRU1365754</a
+      >
     </li>
-  </nav>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <div
+      class="tab-pane fade show active"
+      id="pills-reference"
+      role="tabpanel"
+      aria-labelledby="pills-reference-tab"
+    >
+      <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">no reference</span>
+      </nav>
+      <div class="sub">
+        was created
+        <br />
+        was last updated
+      </div>
+    </div>
 
-  <!-- horizontal shipment-timeline -->
-  <div>
-    
+    <!-- horizontal shipment-timeline -->
+    <div
+      class="tab-pane fade"
+      id="pills-timeline"
+      role="tabpanel"
+      aria-labelledby="pills-timeline-tab"
+    >
+      <div class="container-fluid">
+        <div *ngIf="!disp" class="lds-css ng-scope">
+          <div style="width:100%;height:100%" class="mx-auto lds-rolling">
+            <div></div>
+          </div>
+        </div>
+        <div *ngIf="shipData">
+          <nav class="navbar navbar-light bg-light">
+            <span class="navbar-brand mb-0 h1">{{ shipData.name }}</span>
+          </nav>
+          <div class="sub">
+            <div
+              *ngFor="let item of sea_mvmnt"
+              class="d-inline row flex-row flex-nowrap"
+            >
+              <div class="d-inline-block info">
+                <div class="pair">
+                  <span>Carrier</span>
+                  <div class="name">{{ carrier }}</div>
+                </div>
+                <div class="pair">
+                  <span>B/L</span>
+                  <div class="name">{{ bl_ref }}</div>
+                </div>
+                <div class="pair">
+                  <span>Booking reference</span>
+                  <div class="name">{{ booking_ref }}</div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div *ngFor="let item of sea_mvmnt" class="d-inline">
+              <div class="d-inline-block row flex-row flex-nowrap">
+                <div class="d-inline-block country">
+                  <div class="location">
+                    Pick-up location
+                  </div>
+                  <div class="d-inline-block">
+                    <span
+                      class="flag-icon flag-icon-{{
+                        item.vessel_telo_loading['location']['country'][
+                          'iso_a2'
+                        ] | lowercase
+                      }}"
+                    ></span>
+                    {{ item.vessel_telo_loading['location']['name'] }}
+                  </div>
+                </div>
+                <div class="d-inline-block country">
+                  <div class="location">
+                    Drop-off location
+                  </div>
+                  <div class="d-inline-block">
+                    <span
+                      class="flag-icon flag-icon-{{
+                        item.vessel_telo_discharge['location']['country'][
+                          'iso_a2'
+                        ] | lowercase
+                      }}"
+                    ></span>
+                    {{ item.vessel_telo_discharge['location']['name'] }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div *ngFor="let item of sea_mvmnt" class="d-inline">
+              <div class="sd"></div>
+              <!--j--><span class="dot"></span>
+              <div class="mid sd"></div>
+              <span class="dot"></span>
+              <div class="sd"></div>
+            </div>
+            <div class="row flex-row flex-nowrap">
+              <div class="row" *ngFor="let item of sea_mvmnt">
+                <div class="d-inline-block departure tracker">
+                  <span
+                    ><span class="fa fa-stop"> </span>
+                    {{
+                      item.vessel_telo_loading['readings'][0]['type']
+                        | titlecase
+                    }}
+                    -
+                    {{
+                     (now)- (item.vessel_telo_loading['readings'][0]['reading'])
+                        | date: 'M'
+                    }}
+                    months ago</span
+                  >
+                  <div class="bold">
+                    {{
+                      item.vessel_telo_loading['readings'][0]['event_date']
+                        | date: "MM MMM 'yy, h:mm a"
+                    }}
+                  </div>
+                  <div class="visb">
+                    <span>
+                      {{
+                        item.vessel_telo_loading['readings'][0]['reading']
+                          | date: 'hh:mm a z'
+                      }}
+                      <div>
+                        {{
+                          item.vessel_telo_loading['readings'][0]['source'][
+                            'name'
+                          ]
+                        }}
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <div class="d-inline-block arrival tracker">
+                  <span
+                    ><span class="fa fa-play"></span>
+                    {{
+                      item.vessel_telo_discharge['readings'][0]['type']
+                        | titlecase
+                    }}
+                    -
+                    {{
+                    (now) - (item.vessel_telo_discharge['readings'][0]['reading'])
+                        | date: 'M'
+                    }}
+                    months ago
+                  </span>
+                  <div class="bold">
+                    {{
+                      item.vessel_telo_discharge['readings'][0]['event_date']
+                        | date: "MM MMM 'yy, h:mm a"
+                    }}
+                  </div>
+                  <div class="visb">
+                    <span>
+                      {{
+                        item.vessel_telo_discharge['readings'][0]['reading']
+                          | date: 'hh:mm a z'
+                      }}
+                      <div>
+                        {{
+                          item.vessel_telo_discharge['readings'][0]['source'][
+                            'name'
+                          ]
+                        }}
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="tab-pane fade show active"
+        id="pills-container"
+        role="tabpanel"
+        aria-labelledby="pills-container-tab"
+      ></div>
+    </div>
   </div>
 </div>
